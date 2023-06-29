@@ -1,0 +1,119 @@
+/*practica 4 Jorge Lisandro barrios Ispache*/
+//incluimos librerias para Servomotor, neopixel, definir puertos seriales, y control de leds para matriz led//
+#include <Servo.h>
+#include <SoftwareSerial.h>
+#include <Adafruit_NeoPixel.h>
+#include <LedControl.h>
+LedControl matricial = LedControl(11,13,10,1);	// crea objeto y asignamos pines 
+Adafruit_NeoPixel tled = Adafruit_NeoPixel(7,12); //asignamos pines para neopixel
+SoftwareSerial Bluetooth(8, 9); //definimos puertos seriales para el modulo BLUETOOTH y el arduino
+int val; //VARIABLE PARA EVALUAR LAS SEÑALES DE LAS LETRAS
+char boton = 0; //VARIABLE PARA BOTON 1
+bool AMG = 0; //VARIABLE PARA SERVO 
+bool AMG1=0; //VARIABLE PARA MATRIZ 
+bool AMG2=0; //VARIABLE PARA NEOPIXEL
+bool AMG3=0;
+int val; //VARIABLE PARA EVALUAR LAS SEÑALES DE LAS LETRAS
+int LED1=2;  //VARIABLES PARA LAS LEDS 
+int LED2=3;
+int LED3=4;
+int LED4=5;
+
+byte numero_1[8] = {		//Muestra el numero 1	
+  0x38, 0x64, 0x96, 0x65, 0x25, 0x26, 0x3c, 0x0
+};
+byte numero_2[8] = { //Muestra numero 2
+  0x60, 0x60, 0x60, 0x60, 0x60, 0x7c, 0x7c, 0x0
+};
+byte numero_3[8] = { //Muestra numero 3
+  0x0, 0x7e, 0x4, 0x8, 0x10, 0x20, 0x40, 0x0
+};
+
+Servo dota;
+
+void setup() {
+  Bluetooth.begin(9600); //INICIAMOS MONITOR BLUETOOTH
+  Serial.begin(9600);
+  pinMode(LED1,OUTPUT); //DECLARAMOS LOS PINES COMO SALIDAS
+  pinMode(LED2,OUTPUT); 
+  pinMode(LED3,OUTPUT);
+  pinMode(LED4,OUTPUT);
+  tled.begin(); //INICMIAMOS EL NEOPIXEL 
+  tled.show();
+  matricial.shutdown(0,false);	//ENCENDEMOS LA MATRIZ LED
+  matricial.setIntensity(0,4);  //AJUSTE DE CANTIDAD DE BRILLO MATRIZ
+  matricial.clearDisplay(0);	  //LIMPIAMOS LA MATRIZ 
+  dota.attach(6);
+}
+
+void loop() { 
+  if (Bluetooth.available() > 0){ //SENTENCIA DE LECTURA PARA EL BLUETOOTH
+    boton = Bluetooth.read(); //LEEMOS EL PIN QUE MARCA EL BLUEETOTH
+    Serial.println(boton);
+    if(boton == '1')
+      AMG=!AMG;
+    digitalWrite(LED1,AMG);
+
+
+    if(boton == '2')
+      AMG1=!AMG1;
+    digitalWrite(LED2, AMG1);
+
+
+    if(boton == '3')
+      AMG2=!AMG2;
+    digitalWrite(LED3, AMG2);
+
+    if(boton == '4')
+    AMG3=!AMG_3;
+    digitalWrite(diodo_4, AMG3);
+
+    if(boton == '5')
+      Diseno_1();
+    if(boton == '6')
+      Diseno_2();
+    if(boton == '7')
+      Diseno_3();
+    if(boton == '8'){
+      for(int i = 0; i<7; i = i+2 ){
+        tled.setBrightness(100); //MAXIMO PARA LA TIRA DE LED
+        tled.setPixelColor(i, 150,55,0);
+        tled.show();
+        delay(100);
+      }
+    }
+  }
+}
+
+void Diseno_1(){
+  for (int i = 0; i < 8; i++) // CREAMOS UN ARAY
+  {
+    matricial.setRow(0,i,numero_1[i]);	
+    delay(100);
+  }
+}
+
+void Diseno_2(){ //figura MATRIZ
+  matricial.clearDisplay(0);
+  for (int i = 0; i < 8; i++)SEGUNDO ARRAY 
+  {
+    matricial.setRow(0,i,numero_2[i]);//crea la fila con el array
+    delay(100);
+  }
+}
+
+void Diseno_3(){ //figura MATRUZ
+  for (int i = 0; i < 8; i++) //TERCER ARRAY
+  {
+    matricial.setRow(0,i,numero_3[i]);//crea la fila con el array
+    delay(100);
+  }
+}
+
+void servo(){ //TERCER ARRAY
+  while ( Bluetooth.available() > 0){
+    val = Bluetooth.read();
+    Serial.println(val);
+    dota.write(val);
+  }
+}
