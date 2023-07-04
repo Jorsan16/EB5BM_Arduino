@@ -1,6 +1,6 @@
 #include <Wire.h> //Libreria I2C
 #include <Adafruit_Sensor.h> // Libreria para Acelerometro
-#include <Adafruit.ADXL345_U.h> //Libreria para Acelerometro
+#include <Adafruit_ADXL345_U.h> //Libreria para Acelerometro
 
 Adafruit_ADXL345_Unified accel = Adafruit_ADXL345_Unified(); //Coloco Nombre al Acelerometro
 int Eje_X = 0; //Variable para la aceleracion en eje X
