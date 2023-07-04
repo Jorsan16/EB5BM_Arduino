@@ -1,6 +1,6 @@
-#include <Wire.h>
-#include <Adafruit_Sensor.h>
-#include <Adafruit.ADXL345_U.h>
+#include <Wire.h> //Libreria I2C
+#include <Adafruit_Sensor.h> // Libreria para Acelerometro
+#include <Adafruit.ADXL345_U.h> //Libreria para Acelerometro
 
 Adafruit_ADXL345_Unified accel = Adafruit_ADXL345_Unified();
 int Eje_X = 0;
@@ -9,7 +9,7 @@ int Eje_Z = 0;
 
 void setup(void) {
 Serial.begin(9600);
-accel.begin()
+accel.begin();
 }
 
 void loop(void) {
@@ -21,6 +21,6 @@ Eje_Z = event.acceleration.z;
   
 Serial.print("X: "); Serial.print(Eje_X); Serial.print(" ");
 Serial.print("Y: "); Serial.print(Eje_Y); Serial.print(" ");
-Serial.print("Z: "); Serial.print(Eje_Z); Serial.print(" ");
+Serial.print("Z: "); Serial.print(Eje_Z); Serial.println(" ");
 delay(100);
 }
