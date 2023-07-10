@@ -1,13 +1,14 @@
-int Sensor = A0;
-
+const float Factor = 1.25;
+int lectura = 0;
 void setup() {
 Serial.begin(9600);
 }
 
 void loop() {
-  
-float voltaje =  25*analogRead(A0)/1023;
+lectura = analogRead(A0);
+float voltaje =  (25*lectura*Factor)/1023;
 Serial.print("Voltaje medido =  ");
-Serial.println(voltaje);
-delay(500);
+Serial.print(voltaje);
+Serial.println("V");
+delay(250);
 }
