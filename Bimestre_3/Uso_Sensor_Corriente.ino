@@ -14,7 +14,7 @@ void loop() {
   voltajeSensor = (Lectura*5.0) / 1023.0; //lectura del sensor   
   Corriente = (voltajeSensor - 2.5)/Factor_3; //Ecuación  para obtener la corriente
   Serial.print("Corriente: ");
-  Serial.print(I,3); 
+  Serial.print(Corriente,3); 
   Serial.println(" A"); 
   delay(200);     
 }
